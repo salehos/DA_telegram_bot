@@ -2,106 +2,98 @@ import telebot
 import time
 import random
 
-backup = """mohammad-azari
-mohammad mahdi-danesh pazhoh
-amir mohammad-mohammad gholiha
-kasra-damavandi asl
-mohammad amin-motahari nia
-alireza-rahmani
-mohammad hanif-saadaei jahromi
-mohammad saleh-saeidi
-mohsen-kasiri
-amir hosein-asem yousefi
-sina-mavali
-reza-amini mojed
-alireza-eilami
-mohamad javad-hamzeh
-parham-saremi
-yasaman-samad zadeh
-abolfazl-asad
-danial-esfini farahani
-mahsa-amani
-ali-javanmard
-fatemeh-khashe ei
-bahar-khodabakhshian
-dorna-dehghani
-ahmad-zaaferani
-nima-salem ahim
-ahmad-salimi
-hosein-sobhi
-majid-taher khani
-mohammad matin-fotohi
-amirhosein-farahani
-ali asghar-ghanati
-seyed mohammad sadegh-keshavarzi
-mehregan-nazar mohseni fakoori
-mohammad-shojaeian
-kian-baakhtari
-mohammad ali-pashanj
-seyed amir pouya-moeini
-ahmad-nosrat bakhsh
-diba-masihi
-parham-chavoshian
-mohammad javad-hezaare
-kahbod-aeini
-mohhammad ali-khodabandeh loo
-matin-shoja
-karaneh-keypour
-dorsa-majdi
-mohammad ali-mohammad khani
-amir-nezhad malayeri
-mohammad-abol nezhadian
-matin-moradi
-mohammad mehdi-aboutorabi
-arash-tavangar
-mohammad-jafari ...
-mohammad-cheraghi
-mohammad hosein-haji seyed soleyman
-abdossamad-haghiri
-mehdi-salmani saleh abadi
-mohammad saleh-shojaei estaragh
-ali-abbasi
-reza-erfan arabi(araei?)
-fatemeh-asgari
-mohammad mahdi-gheidi
-seyed mohammad pouria-momtaaze esfahani
-ali-vanaki farahani
-amirhosein-nedaei pour asl
-parsa-hoseini
-amir mohammad-imani
-paniz-halvahi
-amir reza-soleyman beyki
-kian-omoumi
-mahdiyeh-ebrahimpour khoshkedashki
-sara-azarnoush
-peyman-haji mohammad ebrahim
-sara-zahedi movahhed
-kamiyar-taeb
-mohammad javad-alaedini
-roya-ghavami aadel
-saeid-motevali haji
-hosein-partohafshojaei
-arash-chaei melat shahi
-hosein-mirzaei sadeghloo
-"""
+bot = telebot.TeleBot("1668849232:AAGgE5yCtFP2PwAHa9Y7MqcIJzmrJYHuwIQ")
+
+def choose_random(number):
+    my_list = open("students_list.txt", "r")
+    students_list = my_list.readlines()
+    my_list.close()
+    a = []
+    number = int(number)
+    for i in range(0,number):
+        choosen_one = random.randint(0,len(students_list)-1)
+        a.append(students_list[choosen_one])
+        del students_list[choosen_one]
+    new_file = open("students_list.txt", "w+")
+    for line in students_list:
+        new_file.write(line)
+    new_file.close()
+    return(a)
+
+@bot.message_handler(commands=['reset'])
+def reset(message):
+    if str(message.from_user.id) == "210500717":
+        my_list = open("backup.txt", "r")
+        students_list = my_list.readlines()
+        my_list.close()
+        new_file = open("students_list.txt", "w+")
+        for line in students_list:
+            new_file.write(line)
+        new_file.close()
+        bot.reply_to(message, 'لیست ریست شد.')
+    else:
+        bot.reply_to(message,"شما قادر به انجام این دستور نیستید.")
 
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['get1'])
+def get_a_person(message):
+    if str(message.from_user.id) == "210500717":
+        a = choose_random(1)
+        for student in a:
+            bot.send_message(chat_id = "210500717",text=f"{student}")
+            bot.send_message(chat_id = "-599363155",text=f"{student}")
+            # bot.send_message(chat_id = "210500717",text=f"{studet}")
+        else:
+            bot.reply_to(message,"شما قادر به انجام این دستور نیستید.")
+
+
+@bot.message_handler(commands=['get2'])
+def get_two_person(message):
+    if str(message.from_user.id) == "210500717":
+        a = choose_random(2)
+        for student in a:
+            bot.send_message(chat_id = "210500717",text=f"{student}")
+            bot.send_message(chat_id = "-599363155",text=f"{student}")
+            # bot.send_message(chat_id = "210500717",text=f"{studet}")
+    else:
+        bot.reply_to(message,"شما قادر به انجام این دستور نیستید.")
+
+@bot.message_handler(commands=['add_to_list'])
+def add_to_list(message):
+    if str(message.from_user.id) == "210500717":
+        msg = bot.reply_to(message, 'نام فردی که میخواهید به لیست اضافه شود رو اعلام کنید.', reply_markup=keyboard)
+        bot.register_next_step_handler(msg, choosing_one)
+    else:
+        bot.reply_to(message,"شما قادر به انجام این دستور نیستید.")
+
+def choosing_one(message):
+    if message.text != None:
+        my_list = open("students_list.txt", "r")
+        students_list = my_list.readlines()
+        my_list.close()
+        students_list.append("\n"+message.text)
+        new_file = open("students_list.txt", "w+")
+        for line in students_list:
+            new_file.write(line)
+        new_file.close()
+        bot.reply_to(message , "فرد مورد نظر به لیست افراد اضافه شد.")
+
+message_handler(commands=['start'])
 def say_hello(message):
-    bot.reply_to(message, 'به بات خوش آمدید. این بات هر جمعه صبح به شما اسامی دو نفر را خواهد داد.')
-    students_list = backup.split("\n")
-    for i in range(0,30):
-        a = []
-        for i in range(0,2):
-            choosen_one = random.randint(0,len(students_list)-1)
-            bot.send_message(chat_id= message.chat.id , text= students_list[choosen_one])
-            a.append(students_list[choosen_one])
-            del students_list[choosen_one]
-        # for save a list from who choosed before
-        done_list = open("student_list.txt", "a+")
-        myList.write(a)
-        time.sleep(604800)
-        # sleep for a 604800 second or a week
+    bot.reply_to(message,"Welcome")
+    # if str(message.from_user.id) == "210500717":
+    # bot.reply_to(message, 'به بات خوش آمدید. این بات هر جمعه صبح به شما اسامی دو نفر را خواهد داد.')
+    # students_list = backup.split("\n")
+    # for i in range(0,42):
+    #     a = []
+    #     for i in range(0,2):
+    #         choosen_one = random.randint(0,len(students_list)-1)
+    #         bot.send_message(chat_id= message.chat.id , text= students_list[choosen_one])
+    #         a.append(students_list[choosen_one])
+    #         del students_list[choosen_one]
+    #     # for save a list from who choosed before
+    #     done_list = open("student_list.txt", "a+")
+    #     done_list.write(a)
 
 while True:
     try:
