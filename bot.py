@@ -91,11 +91,16 @@ def say_hello(message):
     bot.reply_to(message, 'به بات خوش آمدید. این بات هر جمعه صبح به شما اسامی دو نفر را خواهد داد.')
     students_list = backup.split("\n")
     for i in range(0,30):
+        a = []
         for i in range(0,2):
             choosen_one = random.randint(0,len(students_list)-1)
             bot.send_message(chat_id= message.chat.id , text= students_list[choosen_one])
+            a.append(students_list[choosen_one])
             del students_list[choosen_one]
-        time.sleep(10)
+        # for save a list from who choosed before
+        done_list = open("student_list.txt", "a+")
+        myList.write(a)
+        time.sleep(604800)
         # sleep for a 604800 second or a week
 
 while True:
