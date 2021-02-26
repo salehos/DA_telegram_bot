@@ -85,7 +85,6 @@ arash-chaei melat shahi
 hosein-mirzaei sadeghloo
 """
 
-bot = telebot.TeleBot("1668849232:AAGgE5yCtFP2PwAHa9Y7MqcIJzmrJYHuwIQ")
 
 @bot.message_handler(commands=['start'])
 def say_hello(message):
