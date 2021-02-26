@@ -4,7 +4,7 @@ import random
 
 backup = """mohammad-azari
 mohammad mahdi-danesh pazhoh
-amir mohammad-gholiha
+amir mohammad-mohammad gholiha
 kasra-damavandi asl
 mohammad amin-motahari nia
 alireza-rahmani
@@ -27,43 +27,65 @@ bahar-khodabakhshian
 dorna-dehghani
 ahmad-zaaferani
 nima-salem ahim
+ahmad-salimi
 hosein-sobhi
 majid-taher khani
 mohammad matin-fotohi
 amirhosein-farahani
-sajjad-faghfour maghrebi
-ali asghar-ghanaei
+ali asghar-ghanati
 seyed mohammad sadegh-keshavarzi
-mehregan-nazar mohseni facori
+mehregan-nazar mohseni fakoori
 mohammad-shojaeian
 kian-baakhtari
 mohammad ali-pashanj
 seyed amir pouya-moeini
 ahmad-nosrat bakhsh
 diba-masihi
-arshia-akhavan
 parham-chavoshian
-maryam saadaat-razavi taaheri
+mohammad javad-hezaare
+kahbod-aeini
+mohhammad ali-khodabandeh loo
+matin-shoja
 karaneh-keypour
+dorsa-majdi
+mohammad ali-mohammad khani
+amir-nezhad malayeri
+mohammad-abol nezhadian
+matin-moradi
 mohammad mehdi-aboutorabi
+arash-tavangar
+mohammad-jafari ...
+mohammad-cheraghi
 mohammad hosein-haji seyed soleyman
 abdossamad-haghiri
 mehdi-salmani saleh abadi
+mohammad saleh-shojaei estaragh
+ali-abbasi
 reza-erfan arabi(araei?)
 fatemeh-asgari
 mohammad mahdi-gheidi
+seyed mohammad pouria-momtaaze esfahani
+ali-vanaki farahani
 amirhosein-nedaei pour asl
 parsa-hoseini
 amir mohammad-imani
+paniz-halvahi
+amir reza-soleyman beyki
 kian-omoumi
+mahdiyeh-ebrahimpour khoshkedashki
 sara-azarnoush
 peyman-haji mohammad ebrahim
+sara-zahedi movahhed
 kamiyar-taeb
 mohammad javad-alaedini
+roya-ghavami aadel
+saeid-motevali haji
+hosein-partohafshojaei
 arash-chaei melat shahi
+hosein-mirzaei sadeghloo
 """
 
-bot = telebot.TeleBot("your_token")
+bot = telebot.TeleBot("1668849232:AAGgE5yCtFP2PwAHa9Y7MqcIJzmrJYHuwIQ")
 
 @bot.message_handler(commands=['start'])
 def say_hello(message):
